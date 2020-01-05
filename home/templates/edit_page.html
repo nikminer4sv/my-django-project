@@ -1,0 +1,78 @@
+{% extends 'home.html' %}
+
+{% block title %}Админ панель{% endblock %}
+
+{% block content %}
+
+	<h1>Админ панель</h1>
+
+	{% url 'update_page' article.id as url_update_page%}
+	{% if request.path == url_update_page %}
+		<button form="update_data" type="submit" class="btn btn-primary">Обновить</button>
+		<a class="btn btn-danger" href="{% url 'edit_page' %}">Назад</a>
+	{% else %}
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  			Добавить новую статью
+		</button>
+	{% endif %}
+
+	{% if success %}
+		<p style="color: green">Изменение данных прошло успешно!</p>
+	{% endif %}
+
+	{% if update %}
+
+		<form class="mt-3 mb-3" id="update_data" method="POST">
+	        {% csrf_token %}
+	    	{{form}}
+	    </form>
+
+	{% else %}
+		<table class="table table-bordered mt-4">
+			<thead>
+		    	<tr>
+		      		<th scope="col">id</th>
+		      		<th scope="col">Дата создания</th>
+		      		<th scope="col">Название</th>
+		      		<th scope="col">Редактирование</th>
+		      		<th scope="col">Удаление</th>
+		    	</tr>
+		  	</thead>
+		  	<tbody>
+		  		{% for article in articles_list %}
+			    	<tr>
+			      		<th scope="row">{{article.id}}</th>
+			      		<td>{{article.create_date}}</td>
+			      		<td>{{article.name}}</td>
+			      		<td><a href="{% url 'update_page' article.id %}">редактировать</a></td>
+			      		<td><a href="{% url 'delete_page' article.id %}">удалить</td>
+			    	</tr>
+			    {% endfor %}
+		  	</tbody>
+		</table>
+	{% endif %}
+
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <form id="add_form" method="POST">
+	        	{% csrf_token %}
+	        	{{form}}
+	        </form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+	        <button form="add_form" type="submit" class="btn btn-primary">Добавить</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+{% endblock %}

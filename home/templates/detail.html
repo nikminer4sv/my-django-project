@@ -1,0 +1,12 @@
+{% extends 'home.html' %}
+
+{% block title %}{{article.name}}{% endblock %}
+
+{% block content %}
+
+	<h1>{{article.name}}</h1><hr style="background-color:black">
+	<p>{{article.text}}</p><hr style="background-color:black">
+	<span><b>Дата публикации: {{article.create_date}}</b></span><br>
+	<a href="/" class="btn btn-primary mt-3">Назад</a>
+
+{% endblock %}
