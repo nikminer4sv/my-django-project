@@ -8,6 +8,8 @@
     <!-- Bootstrap CSS -->
     	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
+    	<link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
+
     	<title>{% block title %}Статьи{% endblock %}</title>
 	</head>
 
@@ -27,6 +29,10 @@
 						{% url 'edit_page' as url_edit_page %}
 						{% url 'update_page' article.id as url_update_page %}
 				    	<a class="nav-link {% if url_edit_page == request.path or url_update_page == request.path %}active{% endif %}" href="{{url_edit_page}}">Создание/ред/удал</a>
+					</li>
+					<li>
+						{% url 'wiki' as url_wiki %}
+						<a class="nav-link {% if url_wiki == request.path %}active{% endif %}" href="{{url_wiki}}">Энциклопедия</a>
 					</li>
 				</ul>
 

@@ -1,7 +1,31 @@
 from django.shortcuts import render, redirect
 from .models import Article
 from .form import ArticleForm
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
+from django.views.generic import CreateView
+import wikipedia as wp
+
+
+def wikipediaFunc(r):
+    wp.set_lang('ru')
+    result = ''
+
+    try:
+        text = wp.summary(r)
+        resText = ""
+        for x in text:
+            if x == '\n':
+                break
+            else:
+                resText += x
+        return resText
+    except wp.exceptions.DisambiguationError as e:
+        for x in e.options:
+            if (not x.capitalize() == r) and (not x.lower() == r):
+                result += x + ' '
+        return result
+    except wp.exceptions.PageError as e:
+        return "Страница не найдена!"
 
 
 def home(request):
@@ -29,22 +53,15 @@ def detail_page(request, id):
 
 	return render(request, TEMPLATE, VALUES)
 
+class ArticleCreateView(CreateView):
+	model = Article
+	template_name = 'edit_page.html'
+	form_class = ArticleForm
+	success_url = reverse_lazy('edit_page')
 
-def edit_page(request):
-
-	if request.method == 'POST':
-		form = ArticleForm(request.POST)
-		if form.is_valid():
-			form.save()
-
-	VALUES = {
-		'articles_list': Article.objects.all().order_by('-id'),
-		'form':ArticleForm()
-	}
-
-	TEMPLATE = 'edit_page.html'
-
-	return render(request, TEMPLATE, VALUES)
+	def get_context_data(self, **kwargs):
+		kwargs['articles_list'] = Article.objects.all().order_by('-id')
+		return super().get_context_data(**kwargs)
 
 
 def update_page(request, id):
@@ -77,3 +94,51 @@ def delete_page(request, id):
 	article.delete()
 
 	return redirect(reverse('edit_page'))
+
+
+def wiki(request):
+
+	TEMPLATE = 'wiki.html'
+
+	VALUES = {'wikiTextField':''}
+
+	try:
+		VALUES['wikiTextField'] = request.GET['wikiTextField']
+		VALUES['response'] = wikipediaFunc(VALUES['wikiTextField'])
+	except:
+		pass
+
+
+	return render(request, TEMPLATE, VALUES)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"""
+def edit_page(request):
+
+	if request.method == 'POST':
+		form = ArticleForm(request.POST)
+		if form.is_valid():
+			form.save()
+
+	VALUES = {
+		'articles_list': Article.objects.all().order_by('-id'),
+		'form':ArticleForm()
+	}
+
+	TEMPLATE = 'edit_page.html'
+
+	return render(request, TEMPLATE, VALUES)
+"""

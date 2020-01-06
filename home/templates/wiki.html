@@ -1,0 +1,19 @@
+{% extends 'home.html' %}
+
+{% block title %}Энциклопедия{% endblock %}
+
+{% block content %}
+	<h1 class="text-monospace" style="text-align: center">Энциклопедия</h1>
+	{% if wikiTextField == '' %}
+		<form method="GET">
+			{% csrf_token %}
+			<input style="width: 93%;" class="form-control float-left" type="text" name="wikiTextField">
+			<button class="btn btn-primary mt-0 float-right" type="submit">Найти</button>
+		</form>
+	{% else %}
+		<h3 class="float-left">Результат поиска по запросу: <span style="border-radius: 5px;padding: 1px 4px;padding-bottom: 2px;" class="bg-dark text-light">{{wikiTextField}}</span></h3>
+		<a class="btn btn-primary float-right" href="{% url 'wiki' %}">Назад</a>
+		<div class="clearfix"></div>
+		<div style="padding: 5px;border-radius: 5px;font-family: 'Ubuntu', sans-serif;" class="text-light {% if response == 'Страница не найдена!' %}bg-danger{% else %}bg-dark{% endif %}">{{response}}</div>
+	{% endif %}
+{% endblock %}
