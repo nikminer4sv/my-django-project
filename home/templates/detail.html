@@ -4,9 +4,9 @@
 
 {% block content %}
 
-	<h1>{{article.name}}</h1><hr style="background-color:black">
-	<p>{{article.text}}</p><hr style="background-color:black">
+	<h1 class="mt-2">{{article.name}}</h1>
+	<div style="padding: 5px;font-family: 'Ubuntu', sans-serif;border-radius: 5px;" class="bg-dark text-light mb-1">{{article.text}}</div>
 	<span><b>Дата публикации: {{article.create_date}}</b></span><br>
-	<a href="/" class="btn btn-primary mt-3">Назад</a>
+	<a href="/" class="btn btn-primary mt-2">Назад</a>
 
 {% endblock %}

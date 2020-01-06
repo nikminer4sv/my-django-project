@@ -3,12 +3,14 @@
 {% block title %}Энциклопедия{% endblock %}
 
 {% block content %}
-	<h1 class="text-monospace" style="text-align: center">Энциклопедия</h1>
+	<h1 class="text-monospace pt-2" style="text-align: center">Энциклопедия</h1>
 	{% if wikiTextField == '' %}
 		<form method="GET">
 			{% csrf_token %}
-			<input style="width: 93%;" class="form-control float-left" type="text" name="wikiTextField">
-			<button class="btn btn-primary mt-0 float-right" type="submit">Найти</button>
+			<div class="row">
+				<div class="col"><input class="form-control" type="text" name="wikiTextField"></div>
+				<div class="col-0 mr-3"><button class="btn btn-primary mt-0" type="submit">Найти</button></div>
+			</div>
 		</form>
 	{% else %}
 		<h3 class="float-left">Результат поиска по запросу: <span style="border-radius: 5px;padding: 1px 4px;padding-bottom: 2px;" class="bg-dark text-light">{{wikiTextField}}</span></h3>

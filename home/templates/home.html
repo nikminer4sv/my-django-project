@@ -10,43 +10,72 @@
 
     	<link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
 
-    	<title>{% block title %}Статьи{% endblock %}</title>
+    	<title>{% block title %}Сайт{% endblock %}</title>
+    	<style type="text/css">
+    		.td-blue-hover {
+    			background-color: #007bff;
+    			transition: 0.2s;
+    		}
+    		.td-blue-hover:hover {
+    			background-color: #0065D1;
+    			transition: 0.2s;
+    		}
+
+    		.td-red-hover {
+    			background-color: #dc3545;
+    			transition: 0.2s;
+    		}
+
+    		.td-red-hover:hover {
+    			background-color: #BF2130;
+    			transition: 0.2s;
+    		}
+
+    	</style>
 	</head>
 
-	<body>
+	<body style="height: 100%;overflow: hidden;">
 
 
+		<div class="containter-fluid" style="background: #1D2125">
+			<div class="container">
+				<div class="pt-2 pb-2">
+		    		<div class="bg-white" style="display: inline-block;border-radius: 8px">
+		    			<ul class="nav nav-pills">
+						<li class="nav-item">
+							{% url 'home' as url_home %}
+							{% url 'detail_page' article.id as url_detail %}
+					    	<a class="nav-link {% if url_home == request.path or request.path == url_detail %}active{% endif %}" href="{{url_home}}" style="{% if url_home == request.path or request.path == url_detail%}border-radius: 8px 0 0 8px;{% endif %}">Статьи</a>
+						</li>
+						<li class="nav-item">
+							{% url 'edit_page' as url_edit_page %}
+							{% url 'update_page' article.id as url_update_page %}
+					    	<a class="nav-link {% if url_edit_page == request.path or url_update_page == request.path %}active{% endif %}" href="{{url_edit_page}}" style="border-radius: 8px;">Создание/ред/удал</a>
+						</li>
+						<li>
+							{% url 'wiki' as url_wiki %}
+							<a class="nav-link {% if url_wiki == request.path %}active{% endif %}" href="{{url_wiki}}" style="{% if url_wiki == request.path %}border-radius: 0 8px 8px 0{% endif %}">Энциклопедия</a>
+						</li>
+					</ul>
+		    		</div>
+				</div>
+			</div>
+		</div>
 
-	    <div class="container">
 
-	    	<div class="mt-4 mb-4">
-	    		<ul class="nav nav-pills float-left">
-					<li class="nav-item">
-						{% url 'home' as url_home %}
-				    	<a class="nav-link {% if url_home == request.path %}active{% endif %}" href="{{url_home}}">Главная</a>
-					</li>
-					<li class="nav-item">
-						{% url 'edit_page' as url_edit_page %}
-						{% url 'update_page' article.id as url_update_page %}
-				    	<a class="nav-link {% if url_edit_page == request.path or url_update_page == request.path %}active{% endif %}" href="{{url_edit_page}}">Создание/ред/удал</a>
-					</li>
-					<li>
-						{% url 'wiki' as url_wiki %}
-						<a class="nav-link {% if url_wiki == request.path %}active{% endif %}" href="{{url_wiki}}">Энциклопедия</a>
-					</li>
-				</ul>
+	    <div class="container" style="height: 100vh;background: #F9FAFB;">
 
-				<ul class="nav nav-pills float-right">
-					<li class="nav-item">
-				    	<a class="nav-link btn btn-dark" href="/admin">Админка</a>
-					</li>
-				</ul>
-	    	</div>
 
-	    	<div class="mb-2 clearfix"></div>
+				<!--
+					<ul class="nav nav-pills float-right">
+						<li class="nav-item">
+				    		<a class="nav-link btn btn-dark" href="/admin">Админка</a>
+						</li>
+					</ul>
+				-->
 
 	    	{% block content %}
-	    		<h1>Статьи</h1>
+	    		<h1 class="mt-1">Статьи</h1>
 		    	<ul class="list-group ">
 		    		{% for article in articles_list %}
 		    			<li class="list-group-item mb-4">

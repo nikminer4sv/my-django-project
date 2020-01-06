@@ -4,7 +4,7 @@
 
 {% block content %}
 
-	<h1>Админ панель</h1>
+	<h1 class="mt-1">Админ панель</h1>
 
 	{% url 'update_page' article.id as url_update_page%}
 	{% if request.path == url_update_page %}
@@ -28,9 +28,9 @@
 	    </form>
 
 	{% else %}
-		<table class="table table-bordered mt-4">
+		<table class="table table-bordered mt-3">
 			<thead>
-		    	<tr>
+		    	<tr style="text-align: center">
 		      		<th scope="col">id</th>
 		      		<th scope="col">Дата создания</th>
 		      		<th scope="col">Название</th>
@@ -40,12 +40,12 @@
 		  	</thead>
 		  	<tbody>
 		  		{% for article in articles_list %}
-			    	<tr>
+			    	<tr style="text-align: center">
 			      		<th scope="row">{{article.id}}</th>
 			      		<td>{{article.create_date}}</td>
-			      		<td>{{article.name}}</td>
-			      		<td><a href="{% url 'update_page' article.id %}">редактировать</a></td>
-			      		<td><a href="{% url 'delete_page' article.id %}">удалить</td>
+			      		<td style="text-align: left">{{article.name|truncatechars:50}}</td>
+			      		<td class="td-blue-hover"><a style="color: white;text-decoration: none" href="{% url 'update_page' article.id %}">редактировать</a></td>
+			      		<td class="td-red-hover"><a style="color: white;text-decoration: none;" href="{% url 'delete_page' article.id %}">удалить</a></td>
 			    	</tr>
 			    {% endfor %}
 		  	</tbody>
