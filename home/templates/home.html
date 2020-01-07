@@ -110,7 +110,7 @@
 		    	<ul class="list-group articles">
 		    		{% for article in articles_list %}
 		    			<li class="list-group-item mb-4">
-		    				<b>[{{date[article]}}]</b> 
+		    				<b>[{{article.create_date}}]</b> 
 		    				<span class="m-2">{{article.name|truncatechars:"15"}}</span>
 		    				<span>{{article.text|truncatechars:"15"}}</span>
 		    				<span class="mr-3 float-right"><a href="/detail/{{article.id}}">Перейти к статье</a></span>
