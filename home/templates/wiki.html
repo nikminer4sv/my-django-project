@@ -13,8 +13,8 @@
 			</div>
 		</form>
 	{% else %}
-		<h3 class="float-left">Результат поиска по запросу: <span style="border-radius: 5px;padding: 1px 4px;padding-bottom: 2px;" class="bg-dark text-light">{{wikiTextField}}</span></h3>
-		<a class="btn btn-primary float-right" href="{% url 'wiki' %}">Назад</a>
+		<h3 class="result-btn fl">Результат поиска по запросу: <span style="border-radius: 5px;padding: 1px 4px;padding-bottom: 2px;" class="bg-dark text-light">{{wikiTextField}}</span></h3>
+		<a class="btn btn-primary fr mb-wiki-btn" href="{% url 'wiki' %}">Назад</a>
 		<div class="clearfix"></div>
 		<div style="padding: 5px;border-radius: 5px;font-family: 'Ubuntu', sans-serif;" class="text-light {% if response == 'Страница не найдена!' %}bg-danger{% else %}bg-dark{% endif %}">{{response}}</div>
 	{% endif %}

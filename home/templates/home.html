@@ -31,7 +31,71 @@
     			transition: 0.2s;
     		}
 
+    		.fl {
+    			float: left;
+    		}
+
+    		.fr {
+    			float: right;
+    		}
+
+    		@media (max-width: 768px) {
+    			.menu {
+    				width: 361.1px;
+    				font-size: 14px;
+	    		}
+
+	    		.align-center {
+	    			text-align: center;
+	    		}
+
+	    		.mb-wiki-btn {
+ 					float: none;
+ 					width: 100%;
+ 					margin-bottom: 6px;
+ 					text-align: center;
+ 					font-size: 16pt;
+ 				}
+
+ 				.result-btn {
+    				font-size: 15pt;
+    				text-align: center;
+    				float: none;
+    			}
+
+    			h1 {
+    				font-size: 30pt;
+    				text-align: center;
+    			}
+
+    			.articles {
+    				font-size: 12px;
+    			}
+
+    			.articles span {
+    				margin: 0 -5px;
+    				padding: 0 -5px;;
+    			}
+
+    		}
+
     		@media (max-width: 429px) {
+
+    			.result-btn {
+    				font-size: 12pt;
+    				text-align: center;
+    				float: none;
+    			}
+
+    			.menu {
+    				width: 323.2px;
+    			}
+
+
+    			h1 {
+    				font-size: 26pt;
+    			}
+
     			.articles {
     				font-size: 10px;
     			}
@@ -43,22 +107,19 @@
 
   				.menu {
     				font-size: 12px;
-    				text-align: center;
-    				margin: 0 auto;
- 				}
-
- 				.nav {
- 					text-align: center;
- 				}
-
- 				.menu li {
- 					display: inline-block;
  				}
 
  				h1 {
  					text-align: center;
  				}
 
+ 				.mb-wiki-btn {
+ 					float: none;
+ 					width: 100%;
+ 					margin-bottom: 6px;
+ 					text-align: center;
+ 					font-size: 14pt;
+ 				}
 
  			}
 
@@ -70,7 +131,7 @@
 
 		<div class="containter-fluid" style="background: #1D2125">
 			<div class="container">
-				<div class="pt-2 pb-2">
+				<div class="pt-2 pb-2 align-center">
 		    		<div class="bg-white menu" style="display: inline-block;border-radius: 8px">
 		    			<ul class="nav nav-pills">
 							<li class="nav-item">
@@ -110,10 +171,10 @@
 		    	<ul class="list-group articles">
 		    		{% for article in articles_list %}
 		    			<li class="list-group-item mb-4">
-		    				<b>[{{article.create_date}}]</b> 
+		    				<b>[{% if article.create_date.day < 10 %}0{{article.create_date.day}}{% else %}{{article.create_date.day}}{% endif %}.{% if article.create_date.month < 10 %}0{{article.create_date.month}}{% else %}{{article.create_date.month}}{% endif %}.{{article.create_date.year}}:{{article.create_date.time}}]</b> 
 		    				<span class="m-2">{{article.name|truncatechars:"15"}}</span>
 		    				<span>{{article.text|truncatechars:"15"}}</span>
-		    				<span class="mr-3 float-right"><a href="/detail/{{article.id}}">Перейти к статье</a></span>
+		    				<span class="margins float-right"><a href="/detail/{{article.id}}">Перейти к статье</a></span>
 		    			</li>
 		    		{% endfor %}
 		    	</ul>

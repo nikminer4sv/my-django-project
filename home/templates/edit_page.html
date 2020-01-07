@@ -28,7 +28,7 @@
 	    </form>
 
 	{% else %}
-		<table class="table table-bordered mt-3">
+		<table class="table table-responsive table-sm table-bordered mt-3">
 			<thead>
 		    	<tr style="text-align: center">
 		      		<th scope="col-1">id</th>
@@ -40,9 +40,9 @@
 		  	</thead>
 		  	<tbody>
 		  		{% for article in articles_list %}
-			    	<tr style="text-align: center">
+			    	<tr scope="row" style="text-align: center">
 			      		<th scope="row">{{article.id}}</th>
-			      		<td>{{article.create_date}}</td>
+			      		<td>{% if article.create_date.day < 10 %}0{{article.create_date.day}}{% else %}{{article.create_date.day}}{% endif %}.{% if article.create_date.month < 10 %}0{{article.create_date.month}}{% else %}{{article.create_date.month}}{% endif %}.{{article.create_date.year}}:{{article.create_date.time}}</td>
 			      		<td style="text-align: left">{{article.name|truncatechars:50}}</td>
 			      		<td class="td-blue-hover"><a style="color: white;text-decoration: none" href="{% url 'update_page' article.id %}">редактировать</a></td>
 			      		<td class="td-red-hover"><a style="color: white;text-decoration: none;" href="{% url 'delete_page' article.id %}">удалить</a></td>

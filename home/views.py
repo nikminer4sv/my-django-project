@@ -27,12 +27,22 @@ def wikipediaFunc(r):
     except wp.exceptions.PageError as e:
         return "Страница не найдена!"
 
+class Date():
+
+	date = []
+
+	def get(self, id):
+		return date[id-1]
+
+	def add(self, arg):
+		self.date.append(arg)
+
 
 def home(request):
 
 	articles_list = Article.objects.all().order_by('-id')
 
-	date = {}
+	date = Date()
 
 	for x in articles_list:
 		day = x.create_date.day
@@ -41,7 +51,7 @@ def home(request):
 		month = x.create_date.month
 		if int(month) < 10:
 			day = '0' + str(month)
-		date[x] = '{}.{}.{}'.format(day, month, x.create_date.year)
+		date.add('{}.{}.{}'.format(day, month, x.create_date.year))
 
 
 	VALUES = {
