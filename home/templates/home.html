@@ -31,6 +31,37 @@
     			transition: 0.2s;
     		}
 
+    		@media (max-width: 429px) {
+    			.articles {
+    				font-size: 10px;
+    			}
+
+    			.articles span {
+    				margin: 0 -5px;
+    				padding: 0 -5px;;
+    			}
+
+  				.menu {
+    				font-size: 12px;
+    				text-align: center;
+    				margin: 0 auto;
+ 				}
+
+ 				.nav {
+ 					text-align: center;
+ 				}
+
+ 				.menu li {
+ 					display: inline-block;
+ 				}
+
+ 				h1 {
+ 					text-align: center;
+ 				}
+
+
+ 			}
+
     	</style>
 	</head>
 
@@ -40,23 +71,23 @@
 		<div class="containter-fluid" style="background: #1D2125">
 			<div class="container">
 				<div class="pt-2 pb-2">
-		    		<div class="bg-white" style="display: inline-block;border-radius: 8px">
+		    		<div class="bg-white menu" style="display: inline-block;border-radius: 8px">
 		    			<ul class="nav nav-pills">
-						<li class="nav-item">
-							{% url 'home' as url_home %}
-							{% url 'detail_page' article.id as url_detail %}
-					    	<a class="nav-link {% if url_home == request.path or request.path == url_detail %}active{% endif %}" href="{{url_home}}" style="{% if url_home == request.path or request.path == url_detail%}border-radius: 8px 0 0 8px;{% endif %}">Статьи</a>
-						</li>
-						<li class="nav-item">
-							{% url 'edit_page' as url_edit_page %}
-							{% url 'update_page' article.id as url_update_page %}
-					    	<a class="nav-link {% if url_edit_page == request.path or url_update_page == request.path %}active{% endif %}" href="{{url_edit_page}}" style="border-radius: 8px;">Создание/ред/удал</a>
-						</li>
-						<li>
-							{% url 'wiki' as url_wiki %}
-							<a class="nav-link {% if url_wiki == request.path %}active{% endif %}" href="{{url_wiki}}" style="{% if url_wiki == request.path %}border-radius: 0 8px 8px 0{% endif %}">Энциклопедия</a>
-						</li>
-					</ul>
+							<li class="nav-item">
+								{% url 'home' as url_home %}
+								{% url 'detail_page' article.id as url_detail %}
+						    	<a class="nav-link {% if url_home == request.path or request.path == url_detail %}active{% endif %}" href="{{url_home}}" style="{% if url_home == request.path or request.path == url_detail%}border-radius: 8px 0 0 8px;{% endif %}">Статьи</a>
+							</li>
+							<li class="nav-item">
+								{% url 'edit_page' as url_edit_page %}
+								{% url 'update_page' article.id as url_update_page %}
+						    	<a class="nav-link {% if url_edit_page == request.path or url_update_page == request.path %}active{% endif %}" href="{{url_edit_page}}" style="border-radius: 8px;">Создание/ред/удал</a>
+							</li>
+							<li class="nav-item">
+								{% url 'wiki' as url_wiki %}
+								<a class="nav-link {% if url_wiki == request.path %}active{% endif %}" href="{{url_wiki}}" style="{% if url_wiki == request.path %}border-radius: 0 8px 8px 0{% endif %}">Энциклопедия</a>
+							</li>
+						</ul>
 		    		</div>
 				</div>
 			</div>
@@ -76,11 +107,11 @@
 
 	    	{% block content %}
 	    		<h1 class="mt-1">Статьи</h1>
-		    	<ul class="list-group ">
+		    	<ul class="list-group articles">
 		    		{% for article in articles_list %}
 		    			<li class="list-group-item mb-4">
-		    				<b>[{{article.create_date}}]</b> 
-		    				<span class="m-2">{{article.name}}</span>
+		    				<b>[{{date[article]}}]</b> 
+		    				<span class="m-2">{{article.name|truncatechars:"15"}}</span>
 		    				<span>{{article.text|truncatechars:"15"}}</span>
 		    				<span class="mr-3 float-right"><a href="/detail/{{article.id}}">Перейти к статье</a></span>
 		    			</li>

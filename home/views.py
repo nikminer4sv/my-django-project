@@ -32,8 +32,21 @@ def home(request):
 
 	articles_list = Article.objects.all().order_by('-id')
 
+	date = {}
+
+	for x in articles_list:
+		day = x.create_date.day
+		if int(day) < 10:
+			day = '0' + str(day)
+		month = x.create_date.month
+		if int(month) < 10:
+			day = '0' + str(month)
+		date[x] = '{}.{}.{}'.format(day, month, x.create_date.year)
+
+
 	VALUES = {
 		'articles_list':articles_list,
+		'date':date
 	}
 
 	TEMPLATE = 'home.html'
